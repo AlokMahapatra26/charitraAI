@@ -1,21 +1,21 @@
-import { pgTable , uuid , text , integer,  timestamp } from "drizzle-orm/pg-core";
-
-
+import { pgTable, uuid, varchar, integer, timestamp, boolean } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull().unique(),
+  name: varchar("name", { length: 100 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
   age: integer("age").notNull(),
-  gender: text("gender").notNull(),
+  gender: varchar("gender", { length: 10 }).notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
 export const characters = pgTable("characters", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").notNull().references(() => users.id),
-  name: text("name").notNull(),
-  description: text("description"), 
-  avatarUrl: text("avatar_url"),
+  characterName: varchar("name", { length: 100 }).notNull(),
+  characterDescription: varchar("description", { length: 2000 }),
+  avatarUrl: varchar("avatar_url", { length: 2048 }),
+  likes: integer("likes").notNull().default(0),
+  isPublic: boolean("public").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });

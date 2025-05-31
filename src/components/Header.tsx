@@ -19,7 +19,17 @@ export default async function Header() {
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-4">
           {user ? (
-            <LogoutButton />
+            <>
+                <LogoutButton />
+                <Button asChild>
+                <Link href="/character-form">Create Character</Link>
+                </Button>
+                <Button asChild>
+                <Link href="/user-profile">Profile</Link>
+                </Button>
+            </>
+            
+
           ) : (
             <>
               <Button asChild>
