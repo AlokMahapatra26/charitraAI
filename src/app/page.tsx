@@ -1,7 +1,9 @@
+import AllCharacters from "@/components/AllCharacters";
+
 export default function Home() {
   return (
     <div className="">
-      <h1>Hello world</h1>
+      <AllCharacters/>
     </div>
   );
 }

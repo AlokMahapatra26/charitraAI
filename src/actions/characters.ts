@@ -29,110 +29,79 @@ export const addCharacterAction  = async (characterName : string , characterDesc
 
 
 
-export const getSingleCharacterAction = async (id : string) => {
-    try {
-    const user = await getUser();
-    if (!user) throw new Error("You must be logged in to add journal");
+export const getAllPublicCharactersAction = async () => {
+  try {
+    const publicCharacters = await db
+      .select()
+      .from(characters)
+      .where(eq(characters.isPublic, true)); 
 
-    const singleCharacter = await db   
-        .select()
-        .from(characters)
-        .where(
-            and(
-                eq(characters.userId, user.id),
-                eq(characters.id , id)
-            )
-        )
-        .limit(1)
     return {
-      singleCharacter: singleCharacter[0] || null,
+      characters: publicCharacters,
       errorMessage: null
-    }
+    };
   } catch (error) {
     return {
-      singleCharacter: null,
+      characters: [],
       errorMessage: handleError(error).errorMessage
     };
   }
-}
+};
 
-export const getAllPublicCharactersAction = async (id : string) => {
-    try {
+
+
+export const getAllMyCharactersAction = async () => {
+  try {
     const user = await getUser();
-    if (!user) throw new Error("You must be logged in to add journal");
+    if (!user) throw new Error("You must be logged in.");
 
-    const singleCharacter = await db   
-        .select()
-        .from(characters)
-        .where(
-            and(
-                eq(characters.userId, user.id),
-                eq(characters.id , id)
-            )
-        )
-        .limit(1)
+    const result = await db
+      .select()
+      .from(characters)
+      .where(eq(characters.userId, user.id));
+
     return {
-      singleCharacter: singleCharacter[0] || null,
-      errorMessage: null
-    }
+      characters: result,
+      errorMessage: null,
+    };
   } catch (error) {
     return {
-      singleCharacter: null,
-      errorMessage: handleError(error).errorMessage
+      characters: [],
+      errorMessage: handleError(error).errorMessage,
     };
   }
-}
+};
 
-export const getAllMyCharacterAction = async (id : string) => {
-    try {
+
+export const deleteCharacterAction = async (id: string) => {
+  try {
     const user = await getUser();
-    if (!user) throw new Error("You must be logged in to add journal");
+    if (!user) throw new Error("You must be logged in to delete a character.");
 
-    const singleCharacter = await db   
-        .select()
-        .from(characters)
-        .where(
-            and(
-                eq(characters.userId, user.id),
-                eq(characters.id , id)
-            )
-        )
-        .limit(1)
-    return {
-      singleCharacter: singleCharacter[0] || null,
-      errorMessage: null
+    // First, check if character belongs to the user
+    const existingCharacter = await db
+      .select()
+      .from(characters)
+      .where(and(eq(characters.userId, user.id), eq(characters.id, id)))
+      .limit(1);
+
+    if (!existingCharacter[0]) {
+      throw new Error("Character not found or does not belong to the user.");
     }
+
+    // Perform deletion
+    await db
+      .delete(characters)
+      .where(and(eq(characters.userId, user.id), eq(characters.id, id)));
+
+    return {
+      success: true,
+      errorMessage: null,
+    };
   } catch (error) {
     return {
-      singleCharacter: null,
-      errorMessage: handleError(error).errorMessage
+      success: false,
+      errorMessage: handleError(error).errorMessage,
     };
   }
-}
-
-export const deleteCharacterAction = async (id : string) => {
-    try {
-    const user = await getUser();
-    if (!user) throw new Error("You must be logged in to add journal");
-
-    const singleCharacter = await db   
-        .select()
-        .from(characters)
-        .where(
-            and(
-                eq(characters.userId, user.id),
-                eq(characters.id , id)
-            )
-        )
-        .limit(1)
-    return {
-      singleCharacter: singleCharacter[0] || null,
-      errorMessage: null
-    }
-  } catch (error) {
-    return {
-      singleCharacter: null,
-      errorMessage: handleError(error).errorMessage
-    };
-  }
-}
+};

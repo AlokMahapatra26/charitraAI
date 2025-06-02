@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/DarkModeToggle";
-import LogoutButton from "@/components/LogoutButton";
 import { getUser } from "@/auth/server";
+import { HomeIcon } from "lucide-react";
 
 export default async function Header() {
 
@@ -20,7 +20,9 @@ export default async function Header() {
         <nav className="hidden md:flex items-center gap-4">
           {user ? (
             <>
-                <LogoutButton />
+                <Button asChild>
+                <Link href="/"><HomeIcon/></Link>
+                </Button>
                 <Button asChild>
                 <Link href="/character-form">Create Character</Link>
                 </Button>
