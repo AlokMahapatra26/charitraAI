@@ -1,9 +1,10 @@
 import React from "react";
-import { getAllPublicCharactersAction } from "@/actions/characters"
+import Link from "next/link";
+import { getAllPublicCharactersAction } from "@/actions/characters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { User, Sparkles, MessageCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AllCharacters = async () => {
   const { characters, errorMessage } = await getAllPublicCharactersAction();
@@ -39,27 +40,38 @@ const AllCharacters = async () => {
         {characters.map((char) => (
           <Card
             key={char.id}
-            className="hover:shadow-lg transition-transform duration-200 hover:scale-[1.02]"
+            className="hover:shadow-lg transition-transform duration-200 hover:scale-[1.02] flex flex-col justify-between"
           >
-            <CardHeader className="flex items-center gap-4">
-              <Avatar className="w-10 h-10">
-                {char.avatarUrl ? (
-                  <AvatarImage src={char.avatarUrl} alt={char.characterName} />
-                ) : (
-                  <AvatarFallback>
-                    <User className="h-4 w-4" />
-                  </AvatarFallback>
-                )}
-              </Avatar>
-              <CardTitle className="text-lg">{char.characterName}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground line-clamp-3">
-                {char.characterDescription || "No description provided."}
-              </p>
-              <div className="text-xs text-gray-400 mt-2">
-                ❤️ {char.likes} Likes
-              </div>
+            <div>
+              <CardHeader className="flex items-center gap-4">
+                <Avatar className="w-10 h-10">
+                  {char.avatarUrl ? (
+                    <AvatarImage src={char.avatarUrl} alt={char.characterName} />
+                  ) : (
+                    <AvatarFallback>
+                      <User className="h-4 w-4" />
+                    </AvatarFallback>
+                  )}
+                </Avatar>
+                <CardTitle className="text-lg">{char.characterName}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
+                  {char.characterDescription || "No description provided."}
+                </p>
+                <div className="text-xs text-gray-500">
+                  ❤️ {char.likes} {char.likes === 1 ? "Like" : "Likes"}
+                </div>
+              </CardContent>
+            </div>
+
+            <CardContent className="pt-0">
+              <Link href={`/${char.id}`} passHref>
+                <Button className="w-full mt-2 text-sm" variant="outline">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Chat
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         ))}

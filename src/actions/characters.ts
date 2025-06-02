@@ -73,6 +73,24 @@ export const getAllMyCharactersAction = async () => {
 };
 
 
+export const getCharacterByIdAction = async (id: string) => {
+  try {
+    const result = await db
+      .select()
+      .from(characters)
+      .where(eq(characters.id, id))
+      .limit(1);
+
+    return result[0] || null;
+  } catch (error) {
+    console.error("Failed to fetch character:", error);
+    return null;
+  }
+};
+
+
+
+
 export const deleteCharacterAction = async (id: string) => {
   try {
     const user = await getUser();

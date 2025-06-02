@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User2 } from "lucide-react";
 import { DeleteCharacterButton } from "./DeleteCharacterButton";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface CharacterCardProps {
   id: string;
@@ -63,6 +64,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           ❤️
         </span>
         <span>{likes} {likes === 1 ? "Like" : "Likes"}</span>
+    
+        <Button>Chat</Button>
       </div>
     </Card>
   );
