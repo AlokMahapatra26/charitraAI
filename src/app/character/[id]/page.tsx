@@ -2,6 +2,8 @@ import { getCharacterByIdAction } from "@/actions/characters";
 import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "lucide-react";
+import Chat from "@/components/Chat";
+import { getUser } from "@/auth/server";
 
 interface CharacterPageProps {
   params: { id: string };
@@ -9,6 +11,7 @@ interface CharacterPageProps {
 
 export default async function CharacterPage({ params }: CharacterPageProps) {
   const { id } = params;
+  const user = getUser()
   const character = await getCharacterByIdAction(id);
 
   if (!character) {
@@ -36,6 +39,11 @@ export default async function CharacterPage({ params }: CharacterPageProps) {
       {/* You can replace this with your actual chat component later */}
       <div className="border rounded-lg p-4 text-muted-foreground text-sm">
         <p className="italic">Chat interface for <strong>{character.characterName}</strong> will go here.</p>
+       <Chat
+  characterName={character.characterName}
+  characterDescription={character.characterDescription ?? "no description provided"}
+/>
+
       </div>
     </div>
   );

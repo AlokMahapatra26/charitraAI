@@ -66,7 +66,7 @@ const AllCharacters = async () => {
             </div>
 
             <CardContent className="pt-0">
-              <Link href={`/${char.id}`} passHref>
+              <Link href={`/character/${char.id}`} passHref>
                 <Button className="w-full mt-2 text-sm" variant="outline">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Chat

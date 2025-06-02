@@ -5,6 +5,8 @@ import { db } from "@/db"
 import { characters } from "@/db/schema"
 import { getUser } from "@/auth/server"
 import  {and , eq} from "drizzle-orm"
+import openai from "@/openai"
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs"
 
 export const addCharacterAction  = async (characterName : string , characterDescription: string , avatarUrl : string , isPublic : boolean) => {
     try{
@@ -122,4 +124,38 @@ export const deleteCharacterAction = async (id: string) => {
       errorMessage: handleError(error).errorMessage,
     };
   }
+};
+
+
+
+export const askAIAboutNotesAction = async (
+  newQuestions: string[],
+  responses: string[],
+  name: string,
+  description: string
+) => {
+  const user = await getUser();
+  if (!user) throw new Error("You must be logged in to ask AI questions");
+
+  const messages: ChatCompletionMessageParam[] = [
+    {
+      role: "system",
+      content: `You are a character named ${name}. ${description}`,
+    },
+  ];
+
+  for (let i = 0; i < newQuestions.length; i++) {
+    messages.push({ role: "user", content: newQuestions[i] });
+    if (responses[i]) {
+      messages.push({ role: "assistant", content: responses[i] });
+    }
+  } 
+
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    temperature: 0.8,
+    messages,
+  });
+
+  return completion.choices[0].message.content ?? "An error occurred.";
 };
