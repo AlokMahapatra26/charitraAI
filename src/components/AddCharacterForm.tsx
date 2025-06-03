@@ -37,7 +37,8 @@ export default function AddCharacterForm() {
 
   return (
     <form action={handleSubmit}>
-      <CardContent className="grid w-full gap-4">
+      <CardContent className="grid w-full max-w-full sm:max-w-[500px] sm:min-w-[500px] mx-auto gap-4">
+
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="characterName">Character Name</Label>
           <Input

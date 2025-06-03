@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPublicCharactersAction } from "@/actions/characters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Sparkles, MessageCircle } from "lucide-react";
+import { User, Sparkles, MessageCircle, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AllCharacters = async () => {
@@ -56,22 +56,43 @@ const AllCharacters = async () => {
                 <CardTitle className="text-lg">{char.characterName}</CardTitle>
               </CardHeader>
               <br />
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
-                  {char.characterDescription || "No description provided."}
-                </p>
-               
-              </CardContent>
+                  <CardContent>
+              <p className="text-xs text-muted-foreground mb-1">
+                Created by{" "}
+                <Link href={`/user/${char.userId}`} className="font-medium  hover:underline">
+                  {char.creatorName || "Unknown"}
+                </Link>
+              </p>
+               <p className="text-sm text-muted-foreground mb-3 hidden sm:[display:-webkit-box] sm:line-clamp-3 sm:overflow-hidden sm:text-ellipsis sm:-webkit-box-orient-vertical">
+  {char.characterDescription || "No description provided."}
+</p>
+
+              
+
+
+
+
+
+            </CardContent>
+
             </div>
 
-            <CardContent className="pt-0">
-              <Link href={`/character/${char.id}`} passHref>
-                <Button className="w-full mt-2 text-sm" variant="outline">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Chat
-                </Button>
-              </Link>
-            </CardContent>
+                  <CardContent className="pt-0 flex justify-between items-center space-x-2">
+  <Link href={`/character/${char.id}`} passHref className="flex-1">
+    <Button className="w-full mt-2 text-sm" variant="outline">
+      <MessageCircle className="w-4 h-4 mr-2" />
+      Chat
+    </Button>
+  </Link>
+
+  {/* <div className="flex items-center mt-2 space-x-1">
+    <Button size="icon" variant="outline">
+      <Heart className="w-4 h-4" />
+    </Button>
+    <span className="text-sm text-muted-foreground">12</span>
+  </div> */}
+</CardContent>
+
           </Card>
         ))}
       </div>

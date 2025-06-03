@@ -1,9 +1,13 @@
 import AllCharacters from "@/components/AllCharacters";
+import { getUser } from "@/auth/server";
+import IntroPage from "@/components/IntroPage";
 
-export default function Home() {
+export default async function Home() {
+
+  const user = await getUser();
   return (
-    <div className="">
-      <AllCharacters/>
-    </div>
+    <>
+      {user ? <AllCharacters/> : <IntroPage/>}
+    </>
   );
 }

@@ -4,6 +4,8 @@ import { createClient } from "@/auth/server"
 import { handleError } from "@/lib/utils"
 import { db } from "@/db"
 import { users } from "@/db/schema"
+import { eq } from "drizzle-orm"
+
 
 export const signupAction = async (email : string, password : string , displayName : string , gender : string , age : number) => {
     try{
@@ -79,3 +81,28 @@ export const logoutAction = async () => {
     }
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  age: number;
+  gender: string;
+  createdAt: Date | string | null; // ✅ Allow null
+}
+
+
+
+export const getUserAction = async (id: string): Promise<User | null> => {
+  try {
+    const result = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+
+    return result[0] || null;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    return null;
+  }
+};

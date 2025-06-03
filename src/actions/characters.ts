@@ -6,6 +6,7 @@ import { characters } from "@/db/schema"
 import { getUser } from "@/auth/server"
 import  {and , eq} from "drizzle-orm"
 import openai from "@/openai"
+import {users} from "@/db/schema"
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs"
 
 export const addCharacterAction  = async (characterName : string , characterDescription: string , avatarUrl : string , isPublic : boolean) => {
@@ -33,23 +34,24 @@ export const addCharacterAction  = async (characterName : string , characterDesc
 
 export const getAllPublicCharactersAction = async () => {
   try {
-    const publicCharacters = await db
-      .select()
+    const result = await db
+      .select({
+        id: characters.id,
+        characterName: characters.characterName,
+        characterDescription: characters.characterDescription,
+        avatarUrl: characters.avatarUrl,
+        userId: characters.userId,
+        creatorName: users.name, 
+      })
       .from(characters)
-      .where(eq(characters.isPublic, true)); 
+      .leftJoin(users, eq(characters.userId, users.id)); 
 
-    return {
-      characters: publicCharacters,
-      errorMessage: null
-    };
+    return { characters: result, errorMessage: null };
   } catch (error) {
-    return {
-      characters: [],
-      errorMessage: handleError(error).errorMessage
-    };
+    console.error("Error fetching public characters:", error);
+    return { characters: null, errorMessage: "Something went wrong." };
   }
 };
-
 
 
 export const getAllMyCharactersAction = async () => {

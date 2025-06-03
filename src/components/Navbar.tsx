@@ -5,12 +5,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { ModeToggle } from "@/components/DarkModeToggle";
-import { Home, User2, Brain, ChartArea, Menu, ArrowRightFromLine, UserPlus } from "lucide-react";
+import { Home, User2,  Menu, UserPlus, Info } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import LogoutButton from "@/components/LogoutButton";
+import { UserMetadata } from "@supabase/supabase-js";
 
-export const Navbar = ({ user }:any) => {
+export const Navbar = ({ user }:UserMetadata) => {
   const [open, setOpen] = useState(false); // 🔹 Sheet open state
 
   return (
@@ -72,8 +73,9 @@ const NavLinks = ({ isMobile, closeSheet }:any) => {
     <div className={`flex ${isMobile ? "flex-col w-full gap-2 p-6" : "flex-wrap items-center gap-2"}`}>
       {[
         { href: "/", label: "Home", icon: <Home className="w-4 h-4" /> },
-        { href: "/user-profile", label: "Profile", icon: <User2 className="w-4 h-4" /> },
         { href: "/character-form", label: "Create Character", icon: <UserPlus className="w-4 h-4" /> },
+        { href: "/user-profile", label: "Profile", icon: <User2 className="w-4 h-4" /> },
+        { href: "/about", label: "about", icon: <Info className="w-4 h-4" /> },
       ].map(({ href, label, icon }) => (
         <Button
           key={href}
@@ -86,7 +88,10 @@ const NavLinks = ({ isMobile, closeSheet }:any) => {
             {icon} <span>{label}</span>
           </Link>
         </Button>
+        
       ))}
+      
+           <LogoutButton/>
 
       
        
