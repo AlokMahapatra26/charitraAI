@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, integer, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, integer, timestamp, boolean  } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
@@ -15,7 +15,7 @@ export const characters = pgTable("characters", {
   characterName: varchar("name", { length: 100 }).notNull(),
   characterDescription: varchar("description", { length: 2000 }),
   avatarUrl: varchar("avatar_url", { length: 2048 }),
-  likes: integer("likes").notNull().default(0),
   isPublic: boolean("public").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow(),
 });
+ 

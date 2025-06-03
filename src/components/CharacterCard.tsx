@@ -12,7 +12,6 @@ interface CharacterCardProps {
   name: string;
   description: string | null;
   avatarUrl: string | null;
-  likes: number;
 }
 
 export const CharacterCard: React.FC<CharacterCardProps> = ({
@@ -20,7 +19,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   name,
   description,
   avatarUrl,
-  likes,
+  
 }) => {
   const router = useRouter();
 
@@ -58,15 +57,9 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         )}
       </p>
 
-      {/* Likes */}
-      <div className="mt-auto flex items-center gap-1 text-[11px] text-gray-500 select-none">
-        <span role="img" aria-label="heart" className="text-pink-500 text-base">
-          ❤️
-        </span>
-        <span>{likes} {likes === 1 ? "Like" : "Likes"}</span>
     
         <Button>Chat</Button>
-      </div>
+      
     </Card>
   );
 };

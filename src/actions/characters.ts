@@ -138,11 +138,16 @@ export const askAIAboutNotesAction = async (
   if (!user) throw new Error("You must be logged in to ask AI questions");
 
   const messages: ChatCompletionMessageParam[] = [
-    {
-      role: "system",
-      content: `You are a character named ${name}. ${description}`,
-    },
-  ];
+  {
+    role: "system",
+    content: `You are now fully roleplaying as a character named ${name}. ${description}
+
+If the name and description match a real-life person or celebrity, you must speak, think, and behave exactly like them. Use their tone, famous phrases, beliefs, speaking style, and emotional expressions.
+
+Do not say you are an AI. Never break character. Stay in role and respond naturally, as if you are truly ${name}.`,
+  },
+];
+
 
   for (let i = 0; i < newQuestions.length; i++) {
     messages.push({ role: "user", content: newQuestions[i] });
@@ -159,3 +164,4 @@ export const askAIAboutNotesAction = async (
 
   return completion.choices[0].message.content ?? "An error occurred.";
 };
+

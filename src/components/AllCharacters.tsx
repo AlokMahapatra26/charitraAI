@@ -59,9 +59,7 @@ const AllCharacters = async () => {
                 <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
                   {char.characterDescription || "No description provided."}
                 </p>
-                <div className="text-xs text-gray-500">
-                  ❤️ {char.likes} {char.likes === 1 ? "Like" : "Likes"}
-                </div>
+               
               </CardContent>
             </div>
 
