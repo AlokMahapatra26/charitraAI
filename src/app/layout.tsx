@@ -3,6 +3,14 @@ import { ThemeProvider } from "@/providers/theme-providers";
 import Header from "@/components/Header";
 import "@/styles/globals.css"
 import { Toaster } from "sonner";
+import { Sora } from 'next/font/google';
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +26,7 @@ export default function RootLayout({
     <>
      <html lang="en" suppressHydrationWarning>
       <head/>
-      <body>
+      <body className={sora.className}>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"

@@ -55,22 +55,34 @@ const MyCharacters = async () => {
                 </Avatar>
                 <CardTitle className="text-lg">{char.characterName}</CardTitle>
               </CardHeader>
+              <br />
               <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
-                  {char.characterDescription || "No description provided."}
-                </p>
+                  <p className="text-sm text-muted-foreground mb-3 hidden sm:[display:-webkit-box] sm:line-clamp-3 sm:overflow-hidden sm:text-ellipsis sm:-webkit-box-orient-vertical">
+  {char.characterDescription || "No description provided."}
+</p>
+
+
               </CardContent>
             </div>
 
-            <CardContent className="pt-0 flex flex-col sm:flex-row items-center sm:justify-between space-y-2 sm:space-y-0 sm:space-x-2">
-  <Link href={`/character/${char.id}`} passHref>
-    <Button className="w-full sm:w-auto text-sm flex items-center justify-center cursor-pointer" variant="outline">
-      <MessageCircle className="w-4 h-4 mr-2" />
-      Chat
-    </Button>
-  </Link>
-  <DeleteCharacterButton characterId={char.id} />
+       <CardContent className="pt-0 flex flex-col sm:flex-row items-center justify-between gap-2 w-full">
+  <div className="flex w-full gap-2">
+    <Link href={`/character/${char.id}`} className="flex-1">
+      <Button
+        className="w-full text-sm px-3 py-2 flex items-center justify-center"
+        variant="outline"
+      >
+        <MessageCircle className="w-4 h-4 mr-2" />
+        Chat
+      </Button>
+    </Link>
+    <DeleteCharacterButton
+      characterId={char.id}
+   
+    />
+  </div>
 </CardContent>
+
 
           </Card>
         ))}

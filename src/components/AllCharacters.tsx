@@ -55,6 +55,7 @@ const AllCharacters = async () => {
                 </Avatar>
                 <CardTitle className="text-lg">{char.characterName}</CardTitle>
               </CardHeader>
+              <br />
               <CardContent>
                 <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
                   {char.characterDescription || "No description provided."}

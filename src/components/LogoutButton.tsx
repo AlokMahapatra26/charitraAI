@@ -33,7 +33,7 @@ function LogoutButton() {
     }
 
   return (
-    <Button   disabled={loading} variant="destructive" onClick={handleLogOut}>
+    <Button   disabled={loading} variant="destructive" onClick={handleLogOut} className='ml-2'>
         {loading ? <Loader2 className='animate-spin'/> : <LogOut className=''/>}
     </Button>
   )

@@ -38,7 +38,7 @@ export default async function CharacterPage({ params }: CharacterPageProps) {
         </div>
       </div>
 
-      <div className="border border-border rounded-lg p-4 sm:p-6 bg-background shadow-sm">
+      <div className=" rounded-lg p-4 sm:p-6 bg-background ">
         <Chat
           characterName={character.characterName}
           characterDescription={character.characterDescription ?? "No description provided."}

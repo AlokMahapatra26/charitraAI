@@ -44,7 +44,7 @@ export const DeleteCharacterButton: React.FC<DeleteCharacterButtonProps> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" size="icon" className='cursor-pointer hover:bg-red-900'>
+        <Button variant="destructive" size="icon" className='cursor-pointer hover:bg-red-900 '>
           <Trash2 className="w-4 h-4 " />
         </Button>
       </DialogTrigger>

@@ -8,6 +8,7 @@ import { ModeToggle } from "@/components/DarkModeToggle";
 import { Home, User2, Brain, ChartArea, Menu, ArrowRightFromLine, UserPlus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import LogoutButton from "@/components/LogoutButton";
 
 export const Navbar = ({ user }:any) => {
   const [open, setOpen] = useState(false); // 🔹 Sheet open state
@@ -35,7 +36,7 @@ export const Navbar = ({ user }:any) => {
                   <span>Navigation Menu</span>
                 </VisuallyHidden>
               </SheetTitle>
-              <MobileMenu user={user} closeSheet={() => setOpen(false)} /> {/* Pass closeSheet */}
+              <MobileMenu user={user} closeSheet={() => setOpen(false)} /> 
             </SheetContent>
           </Sheet>
         </div>
@@ -94,6 +95,10 @@ const NavLinks = ({ isMobile, closeSheet }:any) => {
       {isMobile && (
         <div className="block lg:hidden">
           <ModeToggle />
+           
+           <LogoutButton/>
+        
+
         </div>
       )}
     </div>
@@ -105,14 +110,14 @@ const MobileMenu = ({ user, closeSheet }:any) => (
     {user ? (
       <NavLinks isMobile={true} closeSheet={closeSheet} />
     ) : (
-      <>
+      <div className="p-4">
         <Button asChild className="w-full" onClick={closeSheet}>
           <Link href="/signup">Signup</Link>
-        </Button>
+        </Button><br /><br />
         <Button asChild variant="outline" className="w-full" onClick={closeSheet}>
           <Link href="/login">Login</Link>
         </Button>
-      </>
+      </div>
     )}
   </div>
 );
