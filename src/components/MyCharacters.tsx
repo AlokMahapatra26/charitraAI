@@ -2,6 +2,7 @@ import { getAllMyCharactersAction } from "@/actions/characters";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DeleteCharacterButton } from "@/components/DeleteCharacterButton";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, MessageCircle, User } from "lucide-react";
 
@@ -61,14 +62,16 @@ const MyCharacters = async () => {
               </CardContent>
             </div>
 
-            <CardContent className="pt-0">
-              <Link href={`/character/${char.id}`} passHref>
-                <Button className="w-full mt-2 text-sm" variant="outline">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Chat
-                </Button>
-              </Link>
-            </CardContent>
+            <CardContent className="pt-0 flex flex-col sm:flex-row items-center sm:justify-between space-y-2 sm:space-y-0 sm:space-x-2">
+  <Link href={`/character/${char.id}`} passHref>
+    <Button className="w-full sm:w-auto text-sm flex items-center justify-center cursor-pointer" variant="outline">
+      <MessageCircle className="w-4 h-4 mr-2" />
+      Chat
+    </Button>
+  </Link>
+  <DeleteCharacterButton characterId={char.id} />
+</CardContent>
+
           </Card>
         ))}
       </div>
