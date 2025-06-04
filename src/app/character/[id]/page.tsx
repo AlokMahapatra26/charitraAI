@@ -4,11 +4,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "lucide-react";
 import Chat from "@/components/Chat";
 
-interface CharacterPageProps {
-  params: { id: string };
-}
 
-export default async function CharacterPage({ params }: CharacterPageProps) {
+
+export default async function CharacterPage({ params }: { params: { id: string } }) {
+  // Fetch character data by ID
   const { id } = params;
   const character = await getCharacterByIdAction(id);
 
