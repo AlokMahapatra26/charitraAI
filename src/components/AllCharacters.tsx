@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPublicCharactersAction } from "@/actions/characters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Sparkles, MessageCircle, Heart } from "lucide-react";
+import { User, Sparkles, MessageCircle} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AllCharacters = async () => {

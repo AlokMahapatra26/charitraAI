@@ -30,7 +30,7 @@ export const signupAction = async (email : string, password : string , displayNa
 
         if(!userId) throw new Error("Error signing up");
 
-       const result = await db.insert(users).values({
+        await db.insert(users).values({
   id: userId,
   name: displayName,
   email,

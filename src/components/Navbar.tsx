@@ -62,7 +62,12 @@ export const Navbar = ({ user }:UserMetadata) => {
 };
 
 
-const NavLinks = ({ isMobile, closeSheet }:any) => {
+interface NavLinksProps {
+  isMobile: boolean;
+  closeSheet?: () => void;
+}
+
+const NavLinks = ({ isMobile, closeSheet }: NavLinksProps) => {
   const pathname = usePathname();
 
   const handleClick = () => {
@@ -110,7 +115,12 @@ const NavLinks = ({ isMobile, closeSheet }:any) => {
   );
 };
 
-const MobileMenu = ({ user, closeSheet }:any) => (
+interface MobileMenuProps {
+  user: UserMetadata | null;
+  closeSheet: () => void;
+}
+
+const MobileMenu = ({ user, closeSheet }: MobileMenuProps) => (
   <div className="flex flex-col gap-3 mt-4 w-full">
     {user ? (
       <NavLinks isMobile={true} closeSheet={closeSheet} />

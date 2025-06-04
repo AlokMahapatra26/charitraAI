@@ -17,7 +17,7 @@ export default function AboutPage() {
 
         <CardContent className="grid gap-4 text-sm leading-relaxed">
           <p>
-            This project is open-source and actively maintained. Whether you're here to build your own character, explore others, or just have fun chatting with AI you’re part of the story.
+            This project is open-source and actively maintained. Whether you are here to build your own character, explore others, or just have fun chatting with AI you are part of the story.
           </p>
           <p>
             Built with ❤️ using Next.js, Supabase, and OpenAI API.
