@@ -94,11 +94,12 @@ const NavLinks = ({ isMobile, closeSheet }: NavLinksProps) => {
           </Link>
         </Button>
         
+        
       ))}
       
-           <LogoutButton/>
+           
 
-      
+      <LogoutButton/>
        
       
 
@@ -106,7 +107,7 @@ const NavLinks = ({ isMobile, closeSheet }: NavLinksProps) => {
         <div className="block lg:hidden">
           <ModeToggle />
            
-           <LogoutButton/>
+          
         
 
         </div>

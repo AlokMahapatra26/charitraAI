@@ -30,7 +30,7 @@ const AllCharacters = async () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto ">
       <h1 className="text-2xl font-semibold mb-6 flex items-center gap-2 opacity-70">
         <Sparkles className="w-5 h-5" />
         Public Characters
@@ -38,62 +38,45 @@ const AllCharacters = async () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {characters.map((char) => (
-          <Card
-            key={char.id}
-            className="hover:shadow-lg transition-transform duration-200 hover:scale-[1.02] flex flex-col justify-between"
-          >
-            <div>
-              <CardHeader className="flex items-center gap-4">
-                <Avatar className="w-10 h-10">
-                  {char.avatarUrl ? (
-                    <AvatarImage src={char.avatarUrl} alt={char.characterName} />
-                  ) : (
-                    <AvatarFallback>
-                      <User className="h-4 w-4" />
-                    </AvatarFallback>
-                  )}
-                </Avatar>
-                <CardTitle className="text-lg">{char.characterName}</CardTitle>
-              </CardHeader>
-              <br />
-                  <CardContent>
-              <p className="text-xs text-muted-foreground mb-1">
-                Created by{" "}
-                <Link href={`/user/${char.userId}`} className="font-medium  hover:underline">
-                  {char.creatorName || "Unknown"}
-                </Link>
-              </p>
-               <p className="text-sm text-muted-foreground mb-3 hidden sm:[display:-webkit-box] sm:line-clamp-3 sm:overflow-hidden sm:text-ellipsis sm:-webkit-box-orient-vertical">
+         <Card
+  key={char.id}
+  className="min-h-[140px] p-4 flex flex-col justify-between shadow hover:shadow-md transition"
+>
+  <div className="flex items-center gap-4 flex-1">
+    <Avatar className="w-10 h-10 shrink-0">
+      {char.avatarUrl ? (
+        <AvatarImage src={char.avatarUrl} alt={char.characterName} />
+      ) : (
+        <AvatarFallback>
+          <User className="h-4 w-4" />
+        </AvatarFallback>
+      )}
+    </Avatar>
+
+    <div className="flex flex-col overflow-hidden">
+      <CardTitle className="text-base truncate">{char.characterName}</CardTitle>
+     <p className="text-sm text-muted-foreground mb-3 line-clamp-2 sm:line-clamp-3">
   {char.characterDescription || "No description provided."}
 </p>
 
-              
+      <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
+        Created by{" "}
+        <Link href={`/user/${char.userId}`} className="font-medium hover:underline bg-foreground/10 px-1 rounded">
+          {char.creatorName || "Unknown"}
+        </Link>
+      </p>
+    </div>
+  </div>
 
-
-
-
-
-            </CardContent>
-
-            </div>
-
-                  <CardContent className="pt-0 flex justify-between items-center space-x-2">
-  <Link href={`/character/${char.id}`} passHref className="flex-1">
-    <Button className="w-full mt-2 text-sm" variant="outline">
-      <MessageCircle className="w-4 h-4 mr-2" />
-      Chat
-    </Button>
-  </Link>
-
-  {/* <div className="flex items-center mt-2 space-x-1">
-    <Button size="icon" variant="outline">
-      <Heart className="w-4 h-4" />
-    </Button>
-    <span className="text-sm text-muted-foreground">12</span>
-  </div> */}
-</CardContent>
-
-          </Card>
+  <div className="shrink-0">
+    <Link href={`/character/${char.id}`} passHref>
+      <Button className="text-xs px-3 py-1 sm:text-sm sm:px-4 sm:py-2" variant="outline">
+        <MessageCircle className="w-4 h-4 mr-1" />
+        Chat
+      </Button>
+    </Link>
+  </div>
+</Card>
         ))}
       </div>
     </div>
