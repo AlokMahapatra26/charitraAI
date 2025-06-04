@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPublicCharactersAction } from "@/actions/characters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Sparkles, MessageCircle} from "lucide-react";
+import { User, Sparkles, MessageCircle, ThumbsUp, ThumbsDown} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AllCharacters = async () => {
@@ -68,13 +68,15 @@ const AllCharacters = async () => {
     </div>
   </div>
 
-  <div className="shrink-0">
+  <div className="shrink-0 flex items-center justify-start mt-3">
     <Link href={`/character/${char.id}`} passHref>
-      <Button className="text-xs px-3 py-1 sm:text-sm sm:px-4 sm:py-2" variant="outline">
+      <Button className="text-xs px-3 py-1 sm:text-sm sm:px-4 sm:py-2 cursor-pointer" variant="outline">
         <MessageCircle className="w-4 h-4 mr-1" />
         Chat
       </Button>
     </Link>
+ 
+    
   </div>
 </Card>
         ))}
