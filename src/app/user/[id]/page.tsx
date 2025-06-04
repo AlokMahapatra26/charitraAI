@@ -1,8 +1,6 @@
 import React from "react";
 import { getUserAction } from "@/actions/users";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-
 interface Props {
   params: {
     id: string;
