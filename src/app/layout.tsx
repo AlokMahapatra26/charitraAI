@@ -38,7 +38,7 @@ export default function RootLayout({
                 <main className="flex flex-1 flex-col px-4 pt-10 xl:px-4">
                   {children}
                 </main>
-                <Toaster/>
+                <Toaster richColors  position="top-center"/>
             </div>
           </ThemeProvider>
       </body>

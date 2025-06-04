@@ -30,7 +30,7 @@ export default function AddCharacterForm() {
         toast.error('Error', { description: response.errorMessage });
       } else {
         toast.success('Character created', { description: 'Your character has been saved.' });
-        router.refresh();
+        router.push('/user-profile'); 
       }
     });
   };
