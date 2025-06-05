@@ -1,0 +1,1 @@
+ALTER TABLE "characters" ALTER COLUMN "description" SET DATA TYPE varchar(8000);

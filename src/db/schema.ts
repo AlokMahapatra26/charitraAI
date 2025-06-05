@@ -12,7 +12,7 @@ export const characters = pgTable("characters", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").notNull().references(() => users.id),
   characterName: varchar("name", { length: 100 }).notNull(),
-  characterDescription: varchar("description", { length: 2000 }),
+  characterDescription: varchar("description", { length: 8000 }),
   avatarUrl: varchar("avatar_url", { length: 2048 }),
   isPublic: boolean("public").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow(),
