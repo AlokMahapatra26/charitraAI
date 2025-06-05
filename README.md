@@ -12,7 +12,7 @@ Charitra AI is a web app where users can create AI character bots using just a n
 ## 🚀 Getting Started
 
 1. Clone the repo:
-   git clone https://github.com/your-username/charitra-ai.git
+   git clone https://github.com/AlokMahapatra26/charitraAI.git
    cd charitra-ai
 
 2. Install dependencies:
