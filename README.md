@@ -1,4 +1,4 @@
-# 🧠 Charitra AI – Character Bot WebApp
+# 🧠 Charitra AI – Character Bot WebApp 🧠 Charitra AI – Character Bot WebApp
 
 Charitra AI is a web application that allows users to create, chat with, and share AI-powered character bots using just a name and description. Each character has a unique personality, powered by OpenAI's API.
 
