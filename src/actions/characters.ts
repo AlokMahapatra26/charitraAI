@@ -32,6 +32,8 @@ export const addCharacterAction  = async (characterName : string , characterDesc
 
 
 
+
+
 export const getAllPublicCharactersAction = async () => {
   try {
     const result = await db
@@ -41,10 +43,11 @@ export const getAllPublicCharactersAction = async () => {
         characterDescription: characters.characterDescription,
         avatarUrl: characters.avatarUrl,
         userId: characters.userId,
-        creatorName: users.name, 
+        creatorName: users.name,
       })
       .from(characters)
-      .leftJoin(users, eq(characters.userId, users.id)); 
+      .leftJoin(users, eq(characters.userId, users.id))
+      .where(eq(characters.isPublic, true)); 
 
     return { characters: result, errorMessage: null };
   } catch (error) {
@@ -52,6 +55,7 @@ export const getAllPublicCharactersAction = async () => {
     return { characters: null, errorMessage: "Something went wrong." };
   }
 };
+
 
 
 export const getAllMyCharactersAction = async () => {

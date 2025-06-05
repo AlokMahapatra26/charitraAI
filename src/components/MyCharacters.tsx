@@ -4,8 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DeleteCharacterButton } from "@/components/DeleteCharacterButton";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, MessageCircle, User , Pencil } from "lucide-react";
 import { EditCharacterButton } from "./EditCharacterButton";
+import { Globe, MessageCircle, User, Lock, ShieldCheck } from "lucide-react";
+
 
 const MyCharacters = async () => {
   const { characters, errorMessage } = await getAllMyCharactersAction();
@@ -44,18 +45,31 @@ const MyCharacters = async () => {
             className="hover:shadow-lg transition-transform duration-200 hover:scale-[1.02] flex flex-col justify-between"
           >
             <div>
-              <CardHeader className="flex items-center gap-4">
-                <Avatar className="w-10 h-10">
-                  {char.avatarUrl ? (
-                    <AvatarImage src={char.avatarUrl} alt={char.characterName} />
-                  ) : (
-                    <AvatarFallback>
-                      <User className="h-4 w-4" />
-                    </AvatarFallback>
-                  )}
-                </Avatar>
-                <CardTitle className="text-lg">{char.characterName}</CardTitle>
-              </CardHeader>
+              <CardHeader className="flex items-center justify-between gap-4">
+  <div className="flex items-center gap-4">
+    <Avatar className="w-10 h-10">
+      {char.avatarUrl ? (
+        <AvatarImage src={char.avatarUrl} alt={char.characterName} />
+      ) : (
+        <AvatarFallback>
+          <User className="h-4 w-4" />
+        </AvatarFallback>
+      )}
+    </Avatar>
+    <CardTitle className="text-lg">{char.characterName}</CardTitle>
+  </div>
+
+  {char.isPublic ? (
+    <div className="flex items-center gap-1 text-green-600" title="Public">
+      <Globe className="w-4 h-4" />
+    </div>
+  ) : (
+    <div className="flex items-center gap-1 text-yellow-500" title="Private">
+      <Lock className="w-4 h-4" />
+    </div>
+  )}
+</CardHeader>
+
               <br />
               <CardContent>
                   <p className="text-sm text-muted-foreground mb-3 hidden sm:[display:-webkit-box] sm:line-clamp-3 sm:overflow-hidden sm:text-ellipsis sm:-webkit-box-orient-vertical">
@@ -77,12 +91,10 @@ const MyCharacters = async () => {
         Chat
       </Button>
     </Link>
-     <EditCharacterButton characterId={char.id} />
     <DeleteCharacterButton
       characterId={char.id}
-   
     />
-   
+    <EditCharacterButton characterId={char.id} />
 
   </div>
 </CardContent>
