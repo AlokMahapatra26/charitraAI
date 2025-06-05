@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPublicCharactersAction } from "@/actions/characters";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Sparkles, MessageCircle, ThumbsUp, ThumbsDown} from "lucide-react";
+import { User, Sparkles, MessageCircle, ThumbsUp, ThumbsDown, UserPlus} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const AllCharacters = async () => {
@@ -30,7 +30,20 @@ const AllCharacters = async () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto ">
+    <div className="max-w-5xl mx-auto  ">
+    <div className="flex justify-center sm:justify-end mb-4 lg:hidden">
+      <Link href="/character-form" passHref>
+      <Button className="text-sm p-6" variant="default">
+        <UserPlus className="w-4 h-4 mr-2" />
+        Create Character
+      </Button>
+      </Link>
+    </div>
+
+    <div className="mb-4 text-center sm:text-right text-sm text-muted-foreground">
+      Total public characters: <span className="font-semibold">{characters.length}</span>
+    </div>
+
       <h1 className="text-2xl font-semibold mb-6 flex items-center gap-2 opacity-70">
         <Sparkles className="w-5 h-5" />
         Public Characters
