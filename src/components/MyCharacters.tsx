@@ -4,7 +4,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DeleteCharacterButton } from "@/components/DeleteCharacterButton";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, MessageCircle, User } from "lucide-react";
+import { ShieldCheck, MessageCircle, User , Pencil } from "lucide-react";
+import { EditCharacterButton } from "./EditCharacterButton";
 
 const MyCharacters = async () => {
   const { characters, errorMessage } = await getAllMyCharactersAction();
@@ -76,10 +77,13 @@ const MyCharacters = async () => {
         Chat
       </Button>
     </Link>
+     <EditCharacterButton characterId={char.id} />
     <DeleteCharacterButton
       characterId={char.id}
    
     />
+   
+
   </div>
 </CardContent>
 

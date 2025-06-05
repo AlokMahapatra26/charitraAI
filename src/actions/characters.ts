@@ -92,6 +92,27 @@ export const getCharacterByIdAction = async (id: string) => {
   }
 };
 
+export const editCharacterByIdAction = async (id: string, characterName: string, characterDescription: string, avatarUrl: string, isPublic: boolean) => {
+  try {
+    await db
+      .update(characters)
+      .set({
+        characterName,
+        characterDescription,
+        avatarUrl,
+        isPublic
+      })
+      .where(eq(characters.id, id));
+
+    return { errorMessage: null };
+  } catch (error) {
+    console.error("Failed to update character:", error);
+    return { errorMessage: "Something went wrong." };
+  }
+};
+
+
+
 
 
 
@@ -130,7 +151,7 @@ export const deleteCharacterAction = async (id: string) => {
 
 
 
-export const askAIAboutNotesAction = async (
+export const aiCharacterAction = async (
   newQuestions: string[],
   responses: string[],
   name: string,

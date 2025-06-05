@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { askAIAboutNotesAction } from "@/actions/characters";
+import { aiCharacterAction } from "@/actions/characters";
 import { SendHorizonal } from "lucide-react";
 
 interface ChatProps {
@@ -39,7 +39,7 @@ const Chat: React.FC<ChatProps> = ({ characterName, characterDescription }) => {
         .filter((m) => m.role === "assistant")
         .map((m) => m.content);
 
-      const response = await askAIAboutNotesAction(
+      const response = await aiCharacterAction(
         userMessages,
         aiMessages,
         characterName,
