@@ -8,6 +8,9 @@ export default async function Home() {
   return (
     <>
       {user ? <AllCharacters/> : <IntroPage/>}
+      <div className="h-[200px]"></div>
+
+      
     </>
   );
 }
