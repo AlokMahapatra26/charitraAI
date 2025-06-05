@@ -59,7 +59,7 @@ const AllCharacters = async () => {
   {char.characterDescription || "No description provided."}
 </p>
 
-      <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
+      <p className="text-xs text-muted-foreground mt-1">
         Created by{" "}
         <Link href={`/user/${char.userId}`} className="font-medium hover:underline bg-foreground/10 px-1 rounded">
           {char.creatorName || "Unknown"}
