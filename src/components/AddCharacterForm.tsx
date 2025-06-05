@@ -70,7 +70,6 @@ export default function AddCharacterForm() {
             name="avatarUrl"
             type="url"
             placeholder="https://example.com/avatar.png"
-            required
             disabled={isPending}
             className="p-6"
           />
