@@ -8,7 +8,7 @@ import Chat from "@/components/Chat";
 
 export default async function CharacterPage({ params }: { params: { id: string } }) {
   // Fetch character data by ID
-  const { id } = params;
+  const { id } = await params;
   const character = await getCharacterByIdAction(id);
 
   if (!character) {

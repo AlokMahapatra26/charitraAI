@@ -51,7 +51,7 @@ const Chat: React.FC<ChatProps> = ({ characterName, characterDescription }) => {
       console.log(err);
       setMessages([
         ...updatedMessages,
-        { role: "assistant", content: "Something went wrong." },
+        { role: "assistant", content: `${err}` },
       ]);
     } finally {
       setLoading(false);

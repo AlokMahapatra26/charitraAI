@@ -18,6 +18,8 @@ export default async function User() {
           <span className="font-medium text-gray-900 dark:text-white"></span> {user?.email || 'Not provided'}
         </p>
 
+       
+
 
         <br />
         <hr />

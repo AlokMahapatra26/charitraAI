@@ -16,6 +16,32 @@ export const addCharacterAction  = async (characterName : string , characterDesc
         throw new Error("You must be logged to create character");
       }
 
+      
+      const userRecord = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, user.id))
+        .limit(1);
+
+      if(!userRecord) throw new Error("User not found")
+
+      const isPremium = userRecord[0]?.isPremium;
+      
+      const createdCount = await db
+        .select()
+        .from(characters)
+        .where(eq(characters.userId , user.id))
+
+      
+        const limit = isPremium ? 3 : 1;
+
+        if(createdCount.length >= limit){
+          return {errorMessage : `Character creation limit reached. You can create up to ${limit} characters)`}
+        }
+
+  
+
+
       await db.insert(characters).values({
         userId : user.id,
         characterName,
@@ -164,6 +190,25 @@ export const aiCharacterAction = async (
   const user = await getUser();
   if (!user) throw new Error("You must be logged in to ask AI questions");
 
+const userRecord = await db
+  .select()
+  .from(users)
+  .where(eq(users.id, user.id))
+  .limit(1);
+
+
+  if(!userRecord) throw new Error("User not found")
+
+  const isPremium = userRecord[0]?.isPremium;
+  const messagesUsed = userRecord[0]?.chatsThisMonth ?? 0
+
+  const messagesToAdd = newQuestions.length;
+
+  if(!isPremium && messagesUsed + messagesToAdd > 10){
+    throw new Error("Your free tier is over , time to show me the money to keep the conversation going!")
+  }
+  
+
   const messages: ChatCompletionMessageParam[] = [
   {
     role: "system",
@@ -188,6 +233,13 @@ Do not say you are an AI. Never break character. Stay in role and respond natura
     temperature: 0.8,
     messages,
   });
+
+
+  if (!isPremium) {
+    await db.update(users)
+      .set({ chatsThisMonth: messagesUsed + messagesToAdd })
+      .where(eq(users.id, user.id));
+  }
 
   return completion.choices[0].message.content ?? "An error occurred.";
 };

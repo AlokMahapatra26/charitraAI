@@ -6,6 +6,9 @@ export const users = pgTable("users", {
   age: integer("age").notNull(),
   gender: varchar("gender", { length: 10 }).notNull(),
   createdAt: timestamp("created_at").defaultNow(),
+  isPremium: boolean("is_premium").default(false),
+  chatsThisMonth: integer("chats_this_month").default(0),
+  charactersCreated: integer("characters_created").default(0),
 });
 
 export const characters = pgTable("characters", {
