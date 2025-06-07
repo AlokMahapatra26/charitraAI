@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import LogoutButton from "@/components/LogoutButton";
 import { UserMetadata } from "@supabase/supabase-js";
+import { IndianRupee } from "lucide-react";
 
 export const Navbar = ({ user }:UserMetadata) => {
   const [open, setOpen] = useState(false); // 🔹 Sheet open state
@@ -80,7 +81,8 @@ const NavLinks = ({ isMobile, closeSheet }: NavLinksProps) => {
         { href: "/", label: "Home", icon: <Home className="w-4 h-4" /> },
         { href: "/character-form", label: "Create Character", icon: <UserPlus className="w-4 h-4" /> },
         { href: "/user-profile", label: "Profile", icon: <User2 className="w-4 h-4" /> },
-        { href: "/about", label: "about", icon: <Info className="w-4 h-4" /> },
+        { href: "/about", label: "About", icon: <Info className="w-4 h-4" /> },
+        { href: "/pricing", label: "Pricing", icon: <IndianRupee className="w-4 h-4" /> },
       ].map(({ href, label, icon }) => (
         <Button
           key={href}

@@ -1,5 +1,8 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { db } from '@/db'
+import { users } from '@/db/schema'
+import { eq } from 'drizzle-orm'
 
 export async function createClient() {
   const cookieStore = await cookies()
@@ -39,4 +42,14 @@ export async function getUser(){
     }
 
     return userObject.data.user;
+}
+
+export async function getPremiumStatus() {
+  const { auth } = await createClient();
+  const userObject = await auth.getUser();
+
+  if (userObject.error || !userObject.data.user) return false;
+  const dbUser = await db.select().from(users).where(eq(users.id, userObject.data.user.id)).then(rows => rows[0]);
+
+  return dbUser?.isPremium ?? false;
 }
