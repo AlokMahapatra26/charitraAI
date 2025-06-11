@@ -8,6 +8,7 @@ import  {and , eq} from "drizzle-orm"
 import openai from "@/openai"
 import {users} from "@/db/schema"
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs"
+import { characterReactions } from "@/db/schema"
 
 export const addCharacterAction  = async (characterName : string , characterDescription: string , avatarUrl : string , isPublic : boolean) => {
     try{
@@ -56,10 +57,6 @@ export const addCharacterAction  = async (characterName : string , characterDesc
     }
 }
 
-
-
-
-
 export const getAllPublicCharactersAction = async () => {
   try {
     const result = await db
@@ -82,8 +79,6 @@ export const getAllPublicCharactersAction = async () => {
   }
 };
 
-
-
 export const getAllMyCharactersAction = async () => {
   try {
     const user = await getUser();
@@ -105,7 +100,6 @@ export const getAllMyCharactersAction = async () => {
     };
   }
 };
-
 
 export const getCharacterByIdAction = async (id: string) => {
   try {
@@ -141,11 +135,6 @@ export const editCharacterByIdAction = async (id: string, characterName: string,
   }
 };
 
-
-
-
-
-
 export const deleteCharacterAction = async (id: string) => {
   try {
     const user = await getUser();
@@ -178,8 +167,6 @@ export const deleteCharacterAction = async (id: string) => {
     };
   }
 };
-
-
 
 export const aiCharacterAction = async (
   newQuestions: string[],
