@@ -4,7 +4,7 @@ import { handleError } from "@/lib/utils"
 import { db } from "@/db"
 import { characters } from "@/db/schema"
 import { getUser } from "@/auth/server"
-import  {and , eq} from "drizzle-orm"
+import  {and , eq , sql , desc} from "drizzle-orm"
 import openai from "@/openai"
 import {users} from "@/db/schema"
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs"
@@ -67,10 +67,16 @@ export const getAllPublicCharactersAction = async () => {
         avatarUrl: characters.avatarUrl,
         userId: characters.userId,
         creatorName: users.name,
+        likeCount: sql<number>`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`,
       })
       .from(characters)
       .leftJoin(users, eq(characters.userId, users.id))
-      .where(eq(characters.isPublic, true)); 
+      .leftJoin(characterReactions, eq(characters.id, characterReactions.characterId))
+      .where(eq(characters.isPublic, true))
+      .groupBy(characters.id, users.name)
+      .orderBy(
+        desc(sql<number>`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`)
+      );
 
     return { characters: result, errorMessage: null };
   } catch (error) {
