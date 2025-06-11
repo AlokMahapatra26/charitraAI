@@ -33,7 +33,7 @@ export const addCharacterAction  = async (characterName : string , characterDesc
         .where(eq(characters.userId , user.id))
 
       
-        const limit = isPremium ? 3 : 1;
+        const limit = isPremium ? 20 : 1;
 
         if(createdCount.length >= limit){
           return {errorMessage : `Character creation limit reached. You can create up to ${limit} characters)`}

@@ -12,12 +12,11 @@ import {
   CheckCircle,
   Zap,
 } from "lucide-react";
-import { Github, Mail, Twitter} from "lucide-react";
 
 export default function IntroPage() {
   return (
-    <main className="mt-8 bg-background text-foreground flex items-center justify-center px-4">
-      <div className="w-full max-w-4xl text-center space-y-10">
+    <main className="mt-8 bg-background text-foreground flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-3xl xl:max-w-4xl text-center space-y-12">
         {/* Intro */}
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
@@ -30,7 +29,7 @@ export default function IntroPage() {
 
         {/* Why Section */}
         <Card>
-          <CardContent className="p-6 space-y-6 text-left">
+          <CardContent className="p-6 sm:p-8 space-y-6 text-left">
             <div className="space-y-4">
               <h2 className="text-xl font-semibold">Why Charitra AI?</h2>
               <ul className="text-sm space-y-3">
@@ -49,7 +48,7 @@ export default function IntroPage() {
               </ul>
             </div>
 
-            <Button asChild className="w-full">
+            <Button asChild>
               <Link href="/signup">Get Started</Link>
             </Button>
           </CardContent>
@@ -82,67 +81,65 @@ export default function IntroPage() {
         </div>
 
         {/* Pricing Section */}
-        <div className="grid sm:grid-cols-2 gap-6">
-          {/* Free */}
-          <h2 className="text-2xl font-bold">Pricing</h2>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">💳 Pricing</h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Free Plan */}
+            <Card>
+              <CardContent className="p-6 space-y-4 text-left">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <User className="w-5 h-5" />
+                  Free Plan
+                </h3>
+                <p className="text-sm text-muted-foreground font-medium">₹0/month</p>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    1 Character Creation
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    20 Messages / Month
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    Access Public Characters
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardContent className="p-6 space-y-4 text-left">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <User className="w-5 h-5" />
-                Free Plan
-              </h3>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  1 Character Creation
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  20 Messages / Month
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  Access Public Characters
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* Premium */}
-          <Card>
-            <CardContent className="p-6 space-y-4 text-left">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Zap className="w-5 h-5 text-yellow-500" />
-                Premium Plan
-              </h3>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li className="flex items-center gap-2">
-                  <UserPlus className="w-4 h-4 text-blue-500" />
-                  10 Character Creations
-                </li>
-                <li className="flex items-center gap-2">
-                  <Infinity className="w-4 h-4 text-purple-500" />
-                  Unlimited Messages
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  Early Feature Access
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+            {/* Premium Plan */}
+            <Card>
+              <CardContent className="p-6 space-y-4 text-left">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-500" />
+                  Premium Plan
+                </h3>
+                <p className="text-sm text-muted-foreground font-medium">₹199/month</p>
+                <ul className="text-sm text-muted-foreground space-y-2">
+                  <li className="flex items-center gap-2">
+                    <UserPlus className="w-4 h-4 text-blue-500" />
+                    10 Character Creations
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Infinity className="w-4 h-4 text-purple-500" />
+                    Unlimited Messages
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    Early Feature Access
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
-        
-
         {/* Footer Note */}
-        
-
-      {/* Bottom Bar */}
-      <div className="mt-8 text-center text-xs text-muted-foreground">
-        &copy; {new Date().getFullYear()} Charitra AI. All rights reserved.
-      </div>
+        <div className="mt-10 text-center text-xs text-muted-foreground">
+          &copy; {new Date().getFullYear()} Charitra AI. All rights reserved.
+        </div>
       </div>
     </main>
   );
