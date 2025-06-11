@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import {
   toggleCharacterReaction,
   getReactionCounts,
-  getUserReaction, // 👈 Import this
+  getUserReaction, // 
 } from "@/actions/reations";
 
 type Props = {
