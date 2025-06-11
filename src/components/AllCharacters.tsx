@@ -32,7 +32,7 @@ const AllCharacters = async () => {
     );
   }
 
-  // .sort((a, b) => b.likeCount - a.likeCount);
+  // .sort((a, b) => b.likeCount - a.likeCount); 
   const sortedCharacters = characters;
 
   return (
