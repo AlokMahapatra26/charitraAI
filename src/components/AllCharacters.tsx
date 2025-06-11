@@ -32,8 +32,8 @@ const AllCharacters = async () => {
     );
   }
 
-  // .sort((a, b) => b.likeCount - a.likeCount); 
-  const sortedCharacters = characters;
+  
+  const sortedCharacters = characters.sort((a, b) => b.likeCount - a.likeCount);
 
   return (
     <div className="max-w-5xl mx-auto">
