@@ -198,7 +198,7 @@ const userRecord = await db
 
   const messagesToAdd = newQuestions.length;
 
-  if(!isPremium && messagesUsed + messagesToAdd > 10){
+  if(!isPremium && messagesUsed + messagesToAdd > 20){
     throw new Error("Your free tier is over , time to show me the money to keep the conversation going!")
   }
   
