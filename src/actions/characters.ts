@@ -57,6 +57,7 @@ export const addCharacterAction  = async (characterName : string , characterDesc
     }
 }
 
+
 export const getAllPublicCharactersAction = async () => {
   try {
     const result = await db
@@ -67,7 +68,7 @@ export const getAllPublicCharactersAction = async () => {
         avatarUrl: characters.avatarUrl,
         userId: characters.userId,
         creatorName: users.name,
-        likeCount: sql<number>`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`,
+        likeCount: sql<number>`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`.as("likeCount"),
       })
       .from(characters)
       .leftJoin(users, eq(characters.userId, users.id))
@@ -75,7 +76,7 @@ export const getAllPublicCharactersAction = async () => {
       .where(eq(characters.isPublic, true))
       .groupBy(characters.id, users.name)
       .orderBy(
-        desc(sql<number>`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`)
+        desc(sql`COUNT(CASE WHEN ${characterReactions.reaction} = 'like' THEN 1 END)`)
       );
 
     return { characters: result, errorMessage: null };

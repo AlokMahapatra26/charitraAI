@@ -32,9 +32,9 @@ const AllCharacters = async () => {
     );
   }
 
-  
-  const sortedCharacters = characters.sort((a, b) => b.likeCount - a.likeCount);
+  // .sort((a, b) => b.likeCount - a.likeCount);
 
+  const sortedCharacters = characters
   return (
     <div className="max-w-5xl mx-auto">
       <div className="flex justify-center sm:justify-end mb-4 lg:hidden">
