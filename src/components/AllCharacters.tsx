@@ -36,7 +36,11 @@ const AllCharacters = async () => {
 
   const sortedCharacters = characters
   return (
+
+
     <div className="max-w-5xl mx-auto">
+
+      
       <div className="flex justify-center sm:justify-end mb-4 lg:hidden">
         <Link href="/character-form" passHref>
           <Button className="text-sm p-6" variant="default">
@@ -50,16 +54,20 @@ const AllCharacters = async () => {
         Total public characters: <span className="font-semibold">{characters.length}</span>
       </div>
 
+    
+      
+
       <h1 className="text-2xl font-semibold mb-6 flex items-center gap-2 opacity-70">
         <Sparkles className="w-5 h-5" />
         Public Characters
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
         {sortedCharacters.map((char) => (
           <Card
             key={char.id}
-            className="min-h-[140px] p-4 flex flex-col justify-between shadow hover:shadow-md transition"
+            className="min-h-[140px] p-4 flex flex-col justify-between shadow hover:shadow-md transition    bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-lg 
+"
           >
             <div className="flex items-center gap-4 flex-1">
               <Avatar className="w-10 h-10 shrink-0">
@@ -92,13 +100,15 @@ const AllCharacters = async () => {
 
             <div className="shrink-0 flex items-center justify-between mt-3">
               <Link href={`/character/${char.id}`} passHref>
-                <Button
-                  className="text-xs px-3 py-1 sm:text-sm sm:px-4 sm:py-2 cursor-pointer"
-                  variant="outline"
-                >
-                  <MessageCircle className="w-4 h-4 mr-1" />
-                  Chat
-                </Button>
+               <Button
+  className="text-xs px-3 py-1 sm:text-sm sm:px-4 sm:py-2 cursor-pointer transition-all duration-200 ease-out hover:scale-105 hover:-translate-y-0.5 hover:shadow-md"
+  variant="outline"
+>
+  <MessageCircle className="w-4 h-4 mr-1" />
+  Chat
+</Button>
+
+
               </Link>
 
               <div className="flex items-center gap-2">

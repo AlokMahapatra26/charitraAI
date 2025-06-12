@@ -51,7 +51,7 @@ const Chat: React.FC<ChatProps> = ({ characterName, characterDescription }) => {
       console.log(err);
       setMessages([
         ...updatedMessages,
-        { role: "assistant", content: `${err}` },
+        { role: "assistant", content: `Developer Message : Your free tier messages are over , now show me some money to continue having chat with this character XD PS: AI model apis aren't free my love` },
       ]);
     } finally {
       setLoading(false);

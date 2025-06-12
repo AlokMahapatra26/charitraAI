@@ -22,7 +22,7 @@ export function CharacterReactionButtons({ characterId, userId }: Props) {
 
   useEffect(() => {
     fetchCounts();
-    fetchUserReaction(); // 👈 Load reaction on mount
+    fetchUserReaction();
   }, []);
 
   async function fetchCounts() {
@@ -74,24 +74,31 @@ export function CharacterReactionButtons({ characterId, userId }: Props) {
   }
 
   return (
-    <div className="flex items-center gap-4">
-      <Button
-        variant={userReaction === "like" ? "default" : "outline"}
-        size="icon"
-        onClick={() => handleReaction("like")}
-      >
-        <ThumbsUp className="h-5 w-5" />
-      </Button>
-      <span className="text-sm text-muted-foreground">{counts.likes}</span>
+  <div className="flex items-center gap-4">
+  <Button
+    variant={userReaction === "like" ? "default" : "outline"}
+    size="icon"
+    onClick={() => handleReaction("like")}
+    className="transition-all duration-200 ease-out hover:scale-[1.15] hover:-translate-y-1 hover:-rotate-12 hover:shadow-md hover:bg-blue-100/30 hover:text-blue-600 cursor-pointer"
+  >
+    <ThumbsUp className="h-5 w-5 transition-transform duration-200 ease-out" />
+  </Button>
 
-      <Button
-        variant={userReaction === "dislike" ? "default" : "outline"}
-        size="icon"
-        onClick={() => handleReaction("dislike")}
-      >
-        <ThumbsDown className="h-5 w-5" />
-      </Button>
-      <span className="text-sm text-muted-foreground">{counts.dislikes}</span>
-    </div>
+  <span className="text-sm text-muted-foreground">{counts.likes}</span>
+
+  <Button
+    variant={userReaction === "dislike" ? "default" : "outline"}
+    size="icon"
+    onClick={() => handleReaction("dislike")}
+    className="transition-all duration-200 ease-out hover:scale-[1.1] hover:-rotate-12 hover:translate-y-1 hover:shadow-md hover:bg-red-100/30 hover:text-red-600 cursor-pointer"
+  >
+    <ThumbsDown className="h-5 w-5 transition-transform duration-200 ease-out" />
+  </Button>
+
+  <span className="text-sm text-muted-foreground">{counts.dislikes}</span>
+</div>
+
+
+
   );
 }

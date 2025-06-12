@@ -34,7 +34,7 @@ function LogoutButton() {
 
   return (
     <Button   disabled={loading} variant="outline" onClick={handleLogOut} className='cursor-pointer sm:p-0 p-6'>
-        {loading ? <Loader2 className='animate-spin'/> : <LogOut className=''/>} Logout
+        {loading ? <Loader2 className='animate-spin'/> : <LogOut className=''/>} 
     </Button>
   )
 }

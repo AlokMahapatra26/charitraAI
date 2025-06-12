@@ -16,17 +16,50 @@ export const Navbar = ({ user }:UserMetadata) => {
   const [open, setOpen] = useState(false); // 🔹 Sheet open state
 
   return (
-    <header className="w-full bg-popover text-popover-foreground border-b shadow-sm">
+    <header className="w-full bg-popover text-popover-foreground border-b shadow-sm      sticky top-0 z-50 backdrop-blur-md bg-white/30 dark:bg-black/30 border-b border-white/10 shadow-md transition-colors duration-300">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight">
-          
-          Charitra AI
-        </Link>
+      
+      <Link
+  href="/"
+  className="flex items-center gap-2 text-xl font-bold tracking-tight group"
+>
+  <span>Charitra</span>
+  <span className="relative inline-block w-10 h-10">
+    {/* Animated Orbit Ring */}
+    <svg
+      className="absolute inset-0 w-full h-full animate-spin-slow text-blue-400/40"
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r="45"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeDasharray="8 12"
+        strokeLinecap="round"
+      />
+    </svg>
+
+    {/* Pulsing Dot */}
+    <span className="absolute top-1/2 left-1/2 w-2 h-2 bg-blue-500 rounded-full animate-ping-slow -translate-x-1/2 -translate-y-1/2" />
+
+    {/* AI Text Core */}
+    <span className="relative z-10 text-sm font-semibold text-blue-500 animate-fade-in">
+      AI
+    </span>
+  </span>
+</Link>
+
+
+
 
         {/* Mobile Sheet */}
         <div className="md:hidden">
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet open={open} onOpenChange={setOpen} >
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Menu className="w-6 h-6" />
@@ -54,6 +87,7 @@ export const Navbar = ({ user }:UserMetadata) => {
             <>
               <Button asChild><Link href="/signup">Signup</Link></Button>
               <Button asChild variant="outline"><Link href="/login">Login</Link></Button>
+              <ModeToggle />
             </>
           )}
         </nav>

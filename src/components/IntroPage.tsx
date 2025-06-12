@@ -15,8 +15,8 @@ import {
 
 export default function IntroPage() {
   return (
-    <main className="mt-8 bg-background text-foreground flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-3xl xl:max-w-4xl text-center space-y-12">
+    <main className="mt-8 bg-background text-foreground flex items-center justify-center px-4 sm:px-6 lg:px-8 ">
+      <div className=" xl:max-w-2xl text-center space-y-12 ">
         {/* Intro */}
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
@@ -99,7 +99,7 @@ export default function IntroPage() {
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    20 Messages / Month
+                    10 Messages / Month
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-500" />
