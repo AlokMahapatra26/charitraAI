@@ -9,6 +9,7 @@ import openai from "@/openai"
 import {users} from "@/db/schema"
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs"
 import { characterReactions } from "@/db/schema"
+import { chatLogs } from "@/db/schema"
 
 export const addCharacterAction  = async (characterName : string , characterDescription: string , avatarUrl : string , isPublic : boolean) => {
     try{
@@ -37,7 +38,7 @@ export const addCharacterAction  = async (characterName : string , characterDesc
         const limit = isPremium ? 20 : 1;
 
         if(createdCount.length >= limit){
-          return {errorMessage : `Character creation limit reached. You can create up to ${limit} characters)`}
+          return {errorMessage : `Character creation limit reached. You can create up to ${limit} characters`}
         }
 
   
@@ -56,7 +57,6 @@ export const addCharacterAction  = async (characterName : string , characterDesc
         handleError(error) 
     }
 }
-
 
 export const getAllPublicCharactersAction = async () => {
   try {
@@ -175,52 +175,52 @@ export const deleteCharacterAction = async (id: string) => {
   }
 };
 
+
 export const aiCharacterAction = async (
   newQuestions: string[],
   responses: string[],
   name: string,
-  description: string
+  description: string,
+  characterId : string,
 ) => {
   const user = await getUser();
   if (!user) throw new Error("You must be logged in to ask AI questions");
 
-const userRecord = await db
-  .select()
-  .from(users)
-  .where(eq(users.id, user.id))
-  .limit(1);
+  const userRecord = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, user.id))
+    .limit(1);
 
-
-  if(!userRecord) throw new Error("User not found")
+  if (!userRecord || userRecord.length === 0) {
+    throw new Error("User not found");
+  }
 
   const isPremium = userRecord[0]?.isPremium;
-  const messagesUsed = userRecord[0]?.chatsThisMonth ?? 0
-
+  const messagesUsed = userRecord[0]?.chatsThisMonth ?? 0;
   const messagesToAdd = newQuestions.length;
 
-  if(!isPremium && messagesUsed + messagesToAdd > 20){
-    throw new Error("Your free tier is over , time to show me the money to keep the conversation going!")
+  if (!isPremium && messagesUsed + messagesToAdd > 20) {
+    throw new Error("Your free tier is over, time to show me the money!");
   }
-  
 
   const messages: ChatCompletionMessageParam[] = [
-  {
-    role: "system",
-    content: `You are now fully roleplaying as a character named ${name}. ${description}
+    {
+      role: "system",
+      content: `You are now fully roleplaying as a character named ${name}. ${description}
 
 If the name and description match a real-life person or celebrity, you must speak, think, and behave exactly like them. Use their tone, famous phrases, beliefs, speaking style, and emotional expressions.
 
-Do not say you are an AI. Never break character. Stay in role and respond naturally, as if you are truly ${name}.   dont reply too lengthy, keep your answers concise and to the point.  dont say phrases like "As an AI" or "I am an AI" or "I am a language model" or "I am not a real person" or "I am not capable of feeling emotions". You are ${name} and you are real. and also dont say how can i assit you today , dont say heavy words in the start of the conversation, just start the conversation with a simple greeting or a question related to the topic.`,
-  },
-];
-
+Do not say you are an AI. Never break character. Stay in role and respond naturally, as if you are truly ${name}.   dont reply too lengthy, keep your answers concise and to the point.  dont say phrases like "As an AI" or "I am an AI" or "I am a language model" or "I am not a real person" or "I am not capable of feeling emotions". You are ${name} and you are real. and also dont say how can i assist you today, dont say heavy words in the start of the conversation, just start the conversation with a simple greeting or a question related to the topic.`,
+    },
+  ];
 
   for (let i = 0; i < newQuestions.length; i++) {
     messages.push({ role: "user", content: newQuestions[i] });
     if (responses[i]) {
       messages.push({ role: "assistant", content: responses[i] });
     }
-  } 
+  }
 
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
@@ -228,13 +228,25 @@ Do not say you are an AI. Never break character. Stay in role and respond natura
     messages,
   });
 
+  const finalResponse = completion.choices[0].message.content ?? "An error occurred.";
 
+  
+  await db.insert(chatLogs).values({
+  userId: user.id,
+  userName: user.user_metadata.displayName ?? "Anonymous", 
+  characterId,
+  userMessage: newQuestions[newQuestions.length - 1], 
+  aiResponse: finalResponse,
+});
+
+
+  
   if (!isPremium) {
-    await db.update(users)
+    await db
+      .update(users)
       .set({ chatsThisMonth: messagesUsed + messagesToAdd })
       .where(eq(users.id, user.id));
   }
 
-  return completion.choices[0].message.content ?? "An error occurred.";
+  return finalResponse;
 };
-

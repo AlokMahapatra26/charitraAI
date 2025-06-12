@@ -39,6 +39,7 @@ export default async function CharacterPage({ params }: { params: { id: string }
 
       <div className=" rounded-lg p-4 sm:p-6 bg-background ">
         <Chat
+          characterId={character.id}
           characterName={character.characterName}
           characterDescription={character.characterDescription ?? "No description provided."}
         />

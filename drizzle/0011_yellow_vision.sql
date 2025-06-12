@@ -1,0 +1,1 @@
+ALTER TABLE "chat_logs" ADD COLUMN "user_name" text NOT NULL;

@@ -71,6 +71,27 @@
       "when": 1749680384192,
       "tag": "0009_remarkable_ghost_rider",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1749721763313,
+      "tag": "0010_gigantic_scalphunter",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1749725858006,
+      "tag": "0011_yellow_vision",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1749726011775,
+      "tag": "0012_fresh_absorbing_man",
+      "breakpoints": true
     }
   ]
 }

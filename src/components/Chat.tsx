@@ -5,6 +5,7 @@ import { aiCharacterAction } from "@/actions/characters";
 import { SendHorizonal } from "lucide-react";
 
 interface ChatProps {
+  characterId : string,
   characterName: string;
   characterDescription: string;
 }
@@ -14,7 +15,7 @@ type Message = {
   content: string;
 };
 
-const Chat: React.FC<ChatProps> = ({ characterName, characterDescription }) => {
+const Chat: React.FC<ChatProps> = ({ characterId , characterName, characterDescription }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,10 +41,13 @@ const Chat: React.FC<ChatProps> = ({ characterName, characterDescription }) => {
         .map((m) => m.content);
 
       const response = await aiCharacterAction(
+        
         userMessages,
         aiMessages,
         characterName,
-        characterDescription
+        characterDescription,
+        characterId
+        
       );
 
       setMessages([...updatedMessages, { role: "assistant", content: response }]);

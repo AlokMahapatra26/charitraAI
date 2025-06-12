@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, integer, timestamp, boolean, unique } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, integer, timestamp, boolean, unique , text } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
@@ -39,3 +39,28 @@ export const characterReactions = pgTable(
     unq: unique("user_character_reaction_unique").on(t.characterId, t.userId),
   })
 );
+
+export const chatLogs = pgTable("chat_logs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+
+  // Who asked
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+
+  // Optional user name snapshot
+  userName: text("user_name").notNull(),
+
+  // Which character this is talking to
+  characterId: uuid("character_id")
+    .notNull()
+    .references(() => characters.id, { onDelete: "cascade" }),
+
+  // The user's prompt
+  userMessage: text("user_message").notNull(),
+
+  // The AI's response
+  aiResponse: text("ai_response").notNull(),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
