@@ -28,13 +28,17 @@ export default async function CharacterPage({ params }: { params: { id: string }
           )}
         </Avatar>
         <div className="flex flex-col">
-          <h1 className="text-2xl sm:text-3xl font-semibold leading-tight">
-            {character.characterName}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground line-clamp-2 max-w-xs sm:max-w-md">
-            {character.characterDescription ?? "No description provided."}
-          </p>
-        </div>
+  <h1 className="text-2xl sm:text-3xl font-semibold leading-tight">
+    {character.characterName}
+  </h1>
+  <p className="mt-1 text-sm text-muted-foreground line-clamp-2 max-w-xs sm:max-w-md">
+    {character.characterDescription ?? "No description provided."}
+  </p>
+  <p className="mt-2 text-xs text-muted-foreground">
+    Note: If the character's responses aren't great, it's likely due to how the creator designed it — not the AI itself.
+  </p>
+</div>
+
       </div>
 
       <div className=" rounded-lg p-4 sm:p-6 bg-background ">
